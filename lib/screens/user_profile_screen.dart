@@ -19,6 +19,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         title: Text('User Profile Screen'),
       ),
       drawer: AppDrawer(),
+      // TODO: I want to wrap this with a column somehow so I can have a bottom navigaiton
+      // bar at the bottom of this screen
       body: SingleChildScrollView(
         child: Center
           (child: UserProfileInfo(),

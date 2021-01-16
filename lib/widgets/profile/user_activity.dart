@@ -12,7 +12,8 @@ class UserActivity extends StatelessWidget {
     return StreamBuilder(
       stream: Firestore.instance
           .collection('reviewedSeltzers')
-          .where('reviewerId', isEqualTo: id).orderBy('timestamp')
+          .where('reviewerId', isEqualTo: id)
+          .orderBy('timestamp')
           .snapshots(),
       builder: (ctx, reviewsSnapshot) {
         if (reviewsSnapshot.connectionState == ConnectionState.waiting) {
@@ -31,7 +32,8 @@ class UserActivity extends StatelessWidget {
               lastName: reviewsDocs[index]['reviewerLastName'],
               brand: reviewsDocs[index]['brandName'],
               flavor: reviewsDocs[index]['flavor'],
-              rating: reviewsDocs[index]['rating']),
+              rating: reviewsDocs[index]['rating'],
+              id: reviewsDocs[index].documentID),
         );
       },
     );

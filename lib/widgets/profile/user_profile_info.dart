@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:seltzer/widgets/reviews/cheers_comment.dart';
 
 import './user_card.dart';
 import './top_three_card.dart';
