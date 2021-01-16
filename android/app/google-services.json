@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1085094449352",
+    "firebase_url": "https://seltzer-rating-app-default-rtdb.firebaseio.com",
+    "project_id": "seltzer-rating-app",
+    "storage_bucket": "seltzer-rating-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085094449352:android:1675e668cb908a38c755fd",
+        "android_client_info": {
+          "package_name": "com.hannahofthenorth.seltzer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1085094449352-qnb286pfk1pm9q90qfg7h168n47auu1r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hannahofthenorth.seltzer",
+            "certificate_hash": "201fc684861164605eabb5748225d71834183bc5"
+          }
+        },
+        {
+          "client_id": "1085094449352-toddfe5e38funcq4sdngsmnev4pg4kmc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqitNKGTexMnONPUVc7B66InAMPp4uxcU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1085094449352-toddfe5e38funcq4sdngsmnev4pg4kmc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
