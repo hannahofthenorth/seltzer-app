@@ -2,6 +2,13 @@
 
 A new Flutter project.
 
+## To Do
+Finish implementing likes + comments
+Ability to search for other users
+Ability to view other users' profiles
+Ability to follow other users
+Button to edit your profile pic, if you're looking at your profile
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
