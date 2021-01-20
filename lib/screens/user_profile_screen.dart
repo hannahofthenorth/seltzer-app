@@ -19,11 +19,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         title: Text('User Profile Screen'),
       ),
       drawer: AppDrawer(),
-      body: SingleChildScrollView(
-        child: Center
-          (child: UserProfileInfo(),
-        ),
-      ),
+      body: UserProfileInfo(),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/rendering.dart';
 
 class HttpException implements Exception {
-  final String message; 
+  final String message;
 
   HttpException(this.message);
 
@@ -9,5 +9,4 @@ class HttpException implements Exception {
   String toString() {
     return message;
   }
-
 }

@@ -12,7 +12,8 @@ class UserActivity extends StatelessWidget {
     return StreamBuilder(
       stream: Firestore.instance
           .collection('reviewedSeltzers')
-          .where('reviewerId', isEqualTo: id).orderBy('timestamp')
+          .where('reviewerId', isEqualTo: id)
+          .orderBy('timestamp')
           .snapshots(),
       builder: (ctx, reviewsSnapshot) {
         if (reviewsSnapshot.connectionState == ConnectionState.waiting) {
@@ -23,15 +24,14 @@ class UserActivity extends StatelessWidget {
         final reviewsDocs = reviewsSnapshot.data.documents;
         return ListView.builder(
           reverse: true,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
           itemCount: reviewsDocs.length,
           itemBuilder: (c, index) => ReviewedSeltzer(
               firstName: reviewsDocs[index]['reviewerFirstName'],
               lastName: reviewsDocs[index]['reviewerLastName'],
               brand: reviewsDocs[index]['brandName'],
               flavor: reviewsDocs[index]['flavor'],
-              rating: reviewsDocs[index]['rating']),
+              rating: reviewsDocs[index]['rating'],
+              id: reviewsDocs[index].documentID),
         );
       },
     );

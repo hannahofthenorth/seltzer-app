@@ -29,20 +29,40 @@ class UserProfileInfo extends StatelessWidget {
                 );
               }
               final userDocs = userSnapshot.data.documents;
-              return SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    UserCard(
-                      userDocs[0]['firstName'],
-                      userDocs[0]['lastName'],
-                      userDocs[0]['username'],
-                      userDocs[0]['userId'],
-                      '',
-                    ),
-                    TopThreeCard(),
-                    UserActivity(futureSnapshot.data.uid),
-                  ],
-                ),
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  UserCard(
+                    userDocs[0]['firstName'],
+                    userDocs[0]['lastName'],
+                    userDocs[0]['username'],
+                    userDocs[0]['userId'],
+                    '',
+                  ),
+                  TopThreeCard(),
+                  Expanded(child: UserActivity(futureSnapshot.data.uid)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                        child: RaisedButton.icon(
+                          onPressed: () {},
+                          icon: Icon(Icons.add),
+                          label: Text('Rate a new Seltzer'),
+                          color: Theme.of(context).accentColor,
+                          elevation: 0,
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.person),
+                        color: Theme.of(context).accentColor,
+                      ),
+                    ],
+                  ),
+                ],
               );
             });
       },
