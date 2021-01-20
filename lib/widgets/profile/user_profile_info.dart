@@ -8,6 +8,10 @@ import './top_three_card.dart';
 import './user_activity.dart';
 
 class UserProfileInfo extends StatelessWidget {
+  final String profileUid;
+
+  UserProfileInfo(this.profileUid);
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -21,13 +25,17 @@ class UserProfileInfo extends StatelessWidget {
         return StreamBuilder(
             stream: Firestore.instance
                 .collection('users')
-                .where('userId', isEqualTo: futureSnapshot.data.uid)
+                .where('userId', isEqualTo: profileUid)
                 .snapshots(),
             builder: (c, userSnapshot) {
               if (userSnapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
+              }
+              if (userSnapshot.data.documents.isEmpty) {
+                print(profileUid);
+                return Text('something went wrong -- userSnapshot is empty');
               }
               final userDocs = userSnapshot.data.documents;
               return SingleChildScrollView(

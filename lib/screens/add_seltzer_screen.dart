@@ -49,10 +49,11 @@ class _AddSeltzerScreenState extends State<AddSeltzerScreen> {
       return;
     }
     _form.currentState.save();
+
     await Firestore.instance.collection('reviewedSeltzers').add({
       'brandName': _newSeltzer.brand,
       'flavor': _newSeltzer.flavor,
-      'rating': _newSeltzer.rating,
+      'rating': _newSeltzer.rating == null ? 0 : _newSeltzer.rating, 
       'review': _newSeltzer.review,
       'timestamp': Timestamp.now(),
       'reviewerId': user.uid,

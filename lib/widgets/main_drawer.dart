@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../screens/add_brand_info_screen.dart';
 import '../screens/seltzer_feed_screen.dart';
+import '../screens/search_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -33,7 +34,9 @@ class AppDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.search),
             title: Text('Find friends to follow'),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed(SearchScreen.routeName);
+            },
           ),
           Divider(),
           ListTile(

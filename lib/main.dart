@@ -5,12 +5,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import './Providers/seltzers.dart';
 import './Providers/brands.dart';
 import './Providers/auth.dart';
+import './widgets/profile/profile_screen_arguments.dart';
 import './screens/seltzer_feed_screen.dart';
 import './screens/add_seltzer_screen.dart';
 import './screens/add_brand_info_screen.dart';
 import './screens/auth_screen.dart';
 import './screens/splash_screen.dart';
 import './screens/user_profile_screen.dart';
+import './screens/search_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -63,11 +65,17 @@ class MyApp extends StatelessWidget {
               return AuthScreen();
             },
           ),
+          onGenerateRoute: (settings) {
+            if (settings.name == UserProfileScreen.routeName) {
+              final ProfileScreenArguments args = settings.arguments;
+            }
+          },
           routes: {
             SeltzerFeedScreen.routeName: (ctx) => SeltzerFeedScreen(),
             AddSeltzerScreen.routeName: (ctx) => AddSeltzerScreen(),
             AddBrandInfoScreen.routeName: (ctx) => AddBrandInfoScreen(),
             UserProfileScreen.routeName: (ctx) => UserProfileScreen(),
+            SearchScreen.routeName: (ctx) => SearchScreen(),
             // UserSignUpScreen.routeName: (ctx) => UserSignUpScreen(),
           }),
     );
