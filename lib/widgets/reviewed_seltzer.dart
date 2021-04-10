@@ -88,21 +88,6 @@ class ReviewedSeltzer extends StatelessWidget {
               ),
             ),
             CheersComment(id),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.end,
-            //   children: <Widget>[
-            //     TextButton(
-            //       child: const Text('CHEERS'),
-            //       onPressed: () {/* ... */},
-            //     ),
-            //     const SizedBox(width: 8),
-            //     TextButton(
-            //       child: const Text('COMMENT'),
-            //       onPressed: () {/* ... */},
-            //     ),
-            //     const SizedBox(width: 8),
-            //   ],
-            // ),
           ],
         ),
       ),

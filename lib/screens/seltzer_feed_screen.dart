@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../widgets/activity_feed.dart';
 import '../widgets/main_drawer.dart';
+import '../widgets/profile/profile_screen_arguments.dart';
+import '../widgets/profile/view_profile.dart';
 import './add_seltzer_screen.dart';
 import '../screens/add_seltzer_screen.dart';
 import '../screens/user_profile_screen.dart';
@@ -43,6 +46,7 @@ class _SeltzerFeedScreenState extends State<SeltzerFeedScreen> {
             onChanged: (itemIdentifier) {
               if (itemIdentifier == 'logout') {
                 FirebaseAuth.instance.signOut();
+                setState(() {});
               }
             },
           ),
@@ -57,11 +61,47 @@ class _SeltzerFeedScreenState extends State<SeltzerFeedScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Expanded(
-                  child: ActivityFeed(),
+                  child: FutureBuilder(
+                      future: FirebaseAuth.instance.currentUser(),
+                      builder: (ctx, futureSnapshot) {
+                        if (futureSnapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        return StreamBuilder(
+                            stream: Firestore.instance
+                                .collection('users')
+                                .document(futureSnapshot.data.uid)
+                                .collection('following')
+                                .snapshots()
+                                .map((QuerySnapshot snapshot) => snapshot
+                                    .documents
+                                    .map((DocumentSnapshot doc) =>
+                                        doc.data['UID'])
+                                    .toList()),
+                            builder: (c, followingSnapshot) {
+                              if (followingSnapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
+
+                              List<dynamic> followingUIDs =
+                                  followingSnapshot.data.toList();
+                              followingUIDs.insert(0, futureSnapshot.data.uid);
+
+                              return ActivityFeed(followingUIDs);
+                            });
+                      }),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
+                  children: <Widget>[
                     Expanded(
                       child: RaisedButton.icon(
                         onPressed: () {
@@ -75,14 +115,7 @@ class _SeltzerFeedScreenState extends State<SeltzerFeedScreen> {
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.of(context)
-                            .pushReplacementNamed(UserProfileScreen.routeName);
-                      },
-                      icon: Icon(Icons.person),
-                      color: Theme.of(context).accentColor,
-                    ),
+                    ViewProfile(),
                   ],
                 ),
               ],

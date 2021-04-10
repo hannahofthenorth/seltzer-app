@@ -46,7 +46,8 @@ class _AddBrandInfoFormState extends State<AddBrandInfoForm> {
                 children: <Widget>[
                   TextFormField(
                     key: ValueKey('brand'),
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType:
+                        TextInputType.emailAddress, //TODO: remove this?
                     decoration: InputDecoration(
                       labelText: 'Enter brand name',
                     ),

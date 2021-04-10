@@ -5,6 +5,7 @@ import '../reviewed_seltzer.dart';
 
 class UserActivity extends StatelessWidget {
   final String id;
+
   UserActivity(this.id);
 
   @override
@@ -18,10 +19,17 @@ class UserActivity extends StatelessWidget {
       builder: (ctx, reviewsSnapshot) {
         if (reviewsSnapshot.connectionState == ConnectionState.waiting) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.yellow,
+            ),
           );
         }
         final reviewsDocs = reviewsSnapshot.data.documents;
+        print('************** reviews length **************');
+        print(reviewsDocs);
+        if (reviewsDocs.length == 0) {
+          return Text('user has no reviews');
+        }
         return ListView.builder(
           reverse: true,
           shrinkWrap: true,

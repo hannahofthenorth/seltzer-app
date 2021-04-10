@@ -17,7 +17,7 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.dynamic_feed),
+            leading: Icon(Icons.list),
             title: Text('Activity Feed'),
             onTap: () {
               Navigator.of(context)

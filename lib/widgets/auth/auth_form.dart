@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthForm extends StatefulWidget {
   final bool isLoading;
@@ -27,10 +28,33 @@ class _AuthFormState extends State<AuthForm> {
   var _userPassword = '';
   var _userFirstName = '';
   var _userLastName = '';
+  bool _isInAsyncCall = false;
+  bool _isUniqueUsername = true;
 
   void _trySubmit() {
     final isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
+
+    // setState(() {
+    //   _isInAsyncCall = true;
+    // });
+
+    // final match = Firestore.instance
+    //     .collection('users')
+    //     .where('username', isGreaterThanOrEqualTo: _username)
+    //     .where('username', isLessThan: _username + 'z')
+    //     .getDocuments();
+    // match.then((QuerySnapshot querySnapshot) {
+    //   if (querySnapshot.documents.length != 0) {
+    //     print(_isUniqueUsername);
+    //     _isUniqueUsername = !_isUniqueUsername;
+    //     print(_isUniqueUsername);
+    //   }
+    // });
+
+    // setState(() {
+    //   _isInAsyncCall = false;
+    // });
 
     if (isValid) {
       _formKey.currentState.save();
@@ -87,7 +111,43 @@ class _AuthFormState extends State<AuthForm> {
                         if (value.isEmpty || value.length < 4) {
                           return 'Please enter at least 4 characters for your username';
                         }
-                        return null;
+                        bool isUnique = true;
+
+                        var myFuture = Future(() {
+                          final match = Firestore.instance
+                              .collection('users')
+                              .where('username', isGreaterThanOrEqualTo: value)
+                              .where('username', isLessThan: value + 'z')
+                              .getDocuments();
+                          match.then((QuerySnapshot querySnapshot) {
+                            if (querySnapshot.documents.length != 0) {
+                              isUnique = !isUnique;
+                            }
+                          });
+                          return isUnique;
+                        });
+                        myFuture.then((result) {
+                          print('myFuture.then result');
+                          print(result);
+                          if (!result) {
+                            print('username in use');
+                            return 'Username in use';
+                          }
+                          return null;
+                        });
+                        // print('check');
+                        // print(isUnique);
+                        // if (!_isUniqueUsername) {
+                        //   print('!isUniqueUsername?????????');
+                        //   _isUniqueUsername = true;
+                        //   return 'Username in use';
+                        // }
+
+                        // if (_isUniqueUsername) {
+                        //   print('unique username');
+                        //   return 'Username is unique';
+                        // }
+                        // return null;
                       },
                       onSaved: (value) {
                         _username = value;
@@ -114,7 +174,7 @@ class _AuthFormState extends State<AuthForm> {
                     TextFormField(
                       key: ValueKey('lastName'),
                       validator: (value) {
-                        if (value.isEmpty || value.length < 2) {
+                        if (value.isEmpty || value.length < 1) {
                           return 'Please enter your last name';
                         }
                         return null;

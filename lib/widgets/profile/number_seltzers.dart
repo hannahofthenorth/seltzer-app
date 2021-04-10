@@ -13,7 +13,15 @@ class NumberSeltzers extends StatelessWidget {
           .snapshots(),
       builder: (ctx, seltzerSnapshot) {
         if (seltzerSnapshot.connectionState == ConnectionState.waiting) {
-          return Text('<##> seltzers reviewed and counting!');
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(child: SizedBox()),
+              Icon(Icons.bubble_chart),
+              Text('seltzers reviewed and counting!'),
+              Expanded(child: SizedBox()),
+            ],
+          );
         }
         final seltzerTotal = seltzerSnapshot.data.documents.length;
         if (seltzerTotal == 1) {

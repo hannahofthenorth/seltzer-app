@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:seltzer/widgets/reviews/cheers_comment.dart';
 
 import './user_card.dart';
 import './top_three_card.dart';
@@ -46,10 +45,18 @@ class UserProfileInfo extends StatelessWidget {
                       userDocs[0]['lastName'],
                       userDocs[0]['username'],
                       userDocs[0]['userId'],
+                      futureSnapshot.data.uid,
                       '',
+                      userDocs[0]['userId'] == futureSnapshot.data.uid,
                     ),
                     TopThreeCard(),
-                    UserActivity(futureSnapshot.data.uid),
+                    Text(
+                      'Recent Activity',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    UserActivity(profileUid),
                   ],
                 ),
               );
