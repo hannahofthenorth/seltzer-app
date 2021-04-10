@@ -76,9 +76,11 @@ class _CheersCommentState extends State<CheersComment> {
                   const SizedBox(width: 8),
                   TextButton(
                     child: const Text('COMMENT'),
-                    onPressed: () {
-                      AddComment.globalKey.currentState.addAComment();
-                    },
+                    onPressed: addComment
+                    // () {
+                    //   addComment;
+                    //   // AddComment.globalKey.currentState.addAComment();
+                    ,
                     style: TextButton.styleFrom(
                         primary: Theme.of(context).primaryColor),
                   ),
@@ -86,33 +88,33 @@ class _CheersCommentState extends State<CheersComment> {
                 ],
               ),
               Comments(widget.reviewedSeltzerId),
-              AddComment(widget.reviewedSeltzerId),
-              // addAComment
-              //     ? AnimatedContainer(
-              //         duration: Duration(milliseconds: 300),
-              //         height: addAComment ? 50 : 10,
-              //         constraints: BoxConstraints(minHeight: 50),
-              //         child: Row(
-              //           children: [
-              //             Expanded(
-              //               child: TextField(
-              //                 decoration: InputDecoration(
-              //                     labelText: 'Enter a comment!'),
-              //                 onChanged: (value) {
-              //                   _comment = value;
-              //                 },
-              //               ),
-              //             ),
-              //             IconButton(
-              //               icon: Icon(Icons.send),
-              //               onPressed: () =>
-              //                   sendComment(futureSnapshot.data.uid),
-              //               color: Theme.of(context).accentColor,
-              //             ),
-              //           ],
-              //         ),
-              //       )
-              //     : SizedBox()
+              // AddComment(widget.reviewedSeltzerId),
+              addAComment
+                  ? AnimatedContainer(
+                      duration: Duration(milliseconds: 300),
+                      height: addAComment ? 50 : 10,
+                      constraints: BoxConstraints(minHeight: 50),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              decoration: InputDecoration(
+                                  labelText: 'Enter a comment!'),
+                              onChanged: (value) {
+                                _comment = value;
+                              },
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.send),
+                            onPressed: () =>
+                                sendComment(futureSnapshot.data.uid),
+                            color: Theme.of(context).accentColor,
+                          ),
+                        ],
+                      ),
+                    )
+                  : SizedBox()
             ],
           );
         });
